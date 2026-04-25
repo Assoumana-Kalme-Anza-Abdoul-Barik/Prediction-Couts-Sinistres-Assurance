@@ -1,26 +1,38 @@
-# 🛡️ Insurance Claims Ultimate Cost Prediction
+# 🛡️ Prévision des Coûts Ultimes de Sinistres – Assurance
 
-This project focuses on inferring missing values for the *Coût Ultime* (Ultimate Cost) variable in a 1988-2006 insurance panel dataset. Developed as part of the *Apprentissage Supervisé* course at **ISFA** (Institut de Science Financière et d'Assurances).
+Projet réalisé dans le cadre du cours **Apprentissage Statistique** à l'**ISFA** 
+(Institut de Science Financière et d'Assurances), sur un panel de données 
+d'assurance couvrant la période 1988–2006.
 
-## 🎯 Objective
+## 🎯 Objectif
+Prédire les valeurs manquantes du *Coût Ultime* des sinistres à partir de 
+variables structurelles et textuelles, en privilégiant la robustesse aux 
+valeurs extrêmes — problématique centrale en actuariat non-vie.
 
-To predict and impute missing *Coût Ultime* values using advanced Machine Learning techniques, prioritizing model robustness against outliers.
+## ⚙️ Méthodologie
+- **EDA approfondie** et ingénierie de variables (ratios financiers, 
+  variables temporelles)
+- **Benchmark de modèles** : OLS, Random Forest, XGBoost, CatBoost
+- **Optimisation des hyperparamètres** via **Optuna** avec **Huber Loss** 
+  pour la robustesse aux outliers
+- **NLP** : extraction de *Topic Scores* à partir des descriptions textuelles 
+  des sinistres
 
-## ⚙️ Methodology
+## 🏆 Résultats
+| Modèle | R² | RMSE |
+|---|---|---|
+| OLS | baseline | — |
+| XGBoost | — | — |
+| **CatBoost** | **84%** | **0.61** |
 
-* **Workflow:** Extensive EDA, Feature Engineering, and model benchmarking (Regression, Classification, Boosting).
-* **Model Selection:** **CatBoost** was selected as the best performer (lowest RMSE/MAE, highest $R^2$) despite higher inference time.
-* **Optimization:** Hyperparameter tuning via **Optuna** using **Huber Loss** to handle significant outliers in claim costs.
+Modèle retenu : **CatBoost** – meilleur compromis précision/robustesse.
 
-## 🔑 Key Features
-
-The model relies heavily on the following predictors:
-
-1. Logarithmic *Coût Initial*
+## 🔑 Variables clés
+1. Log(*Coût Initial*)
 2. Topic Scores (NLP)
-3. Effective Hourly Wage
-4. Time-to-Communication & Claim-to-Salary ratios
+3. Salaire horaire effectif
+4. Ratios délai de déclaration / coût-salaire
 
-## 📊 Results
-
-The imputed *Coût Ultime* distribution effectively mirrors the statistical properties of the initial cost (size-adjusted), validating the model's consistency on out-of-sample data.
+## 🛠️ Stack technique
+`Python` · `CatBoost` · `XGBoost` · `Optuna` · `scikit-learn` · 
+`pandas` · `NLP`
